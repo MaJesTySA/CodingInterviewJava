@@ -4,8 +4,47 @@ import java.util.*;
 
 public class DuplicationInArray {
     public static void main(String[] args) {
-        int[] arr = {2, 0, 2, 1, 4};
-        System.out.println(getDuplicateWithHash(arr));
+        test1();
+        test2();
+        test3();
+        test4();
+        test5();
+        test6();
+    }
+
+    private static void test6() {
+        System.out.print("空数组：\t");
+        System.out.println("expected = [] , result = " + getDuplicateWithHash(null));
+    }
+
+    private static void test5() {
+        System.out.print("数组中没有重复的数字：\t");
+        int[] arr = {2, 1, 3, 5, 4};
+        System.out.println("expected = [] , result = " + getDuplicateWithHash(arr));
+    }
+
+    private static void test4() {
+        System.out.print("数组中没有重复的数字：\t");
+        int[] arr = {2, 1, 3, 0, 4};
+        System.out.println("expected = [] , result = " + getDuplicateWithHash(arr));
+    }
+
+    private static void test3() {
+        System.out.print("数组中存在多个重复的数字：\t");
+        int[] arr = {2, 4, 2, 1, 4};
+        System.out.println("expected = [2, 4] , result = " + getDuplicateWithHash(arr));
+    }
+
+    private static void test2() {
+        System.out.print("重复的数字是数组中最大的数字：\t");
+        int[] arr = {2, 4, 3, 1, 4};
+        System.out.println("expected = [4] , result = " + getDuplicateWithHash(arr));
+    }
+
+    private static void test1() {
+        System.out.print("重复的数字是数组中最小的数字：\t");
+        int[] arr = {2, 1, 3, 1, 4};
+        System.out.println("expected = [1] , result = " + getDuplicateWithHash(arr));
     }
 
     /*
@@ -20,7 +59,7 @@ public class DuplicationInArray {
             if (arr[i] < 0 || arr[i] > arr.length - 1)
                 return result;
         }
-        HashMap<Integer, Integer> numsMap = new HashMap();
+        HashMap<Integer, Integer> numsMap = new HashMap<>();
         for (int i = 0; i < arr.length; i++) {
             if (numsMap.get(arr[i]) == null) {
                 numsMap.put(arr[i], arr[i]);
