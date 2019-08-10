@@ -68,7 +68,15 @@ public class SubstructureInTree {
         bNode2.right = bNode4;
         System.out.println("expected = false , result = " + hasSubtree(null, bNode1));
     }
-
+//       8                   8
+//        \                   \ 
+//         8                   9   
+//          \                 / \
+//           9               3   2
+//            \      
+//             2        
+//              \
+//               5
     private static void test6() {
         System.out.print("只有右子结点，树B不是树A的子结构：\t");
         BinaryTreeNode aNode1 = new BinaryTreeNode(8);
@@ -89,7 +97,15 @@ public class SubstructureInTree {
         bNode2.right = bNode4;
         System.out.println("expected = false , result = " + hasSubtree(aNode1, bNode1));
     }
-
+//       8                   8
+//        \                   \ 
+//         8                   9   
+//          \                   \
+//           9                   2
+//            \      
+//             2        
+//              \
+//               5
     private static void test5() {
         System.out.print("只有右子结点，树B是树A的子结构：\t");
         BinaryTreeNode aNode1 = new BinaryTreeNode(8);
@@ -108,7 +124,15 @@ public class SubstructureInTree {
         bNode2.right = bNode3;
         System.out.println("expected = true , result = " + hasSubtree(aNode1, bNode1));
     }
-
+//                8                  8
+//              /                   / 
+//             8                   9   
+//           /                    /
+//          9                    3
+//         /      
+//        2        
+//       /
+//      5
     private static void test4() {
         System.out.print("只有左子结点，树B不是树A的子结构：\t");
         BinaryTreeNode aNode1 = new BinaryTreeNode(8);
@@ -127,7 +151,15 @@ public class SubstructureInTree {
         bNode2.left = bNode3;
         System.out.println("expected = false , result = " + hasSubtree(aNode1, bNode1));
     }
-
+//                8                  8
+//              /                   / 
+//             8                   9   
+//           /                    /
+//          9                    2
+//         /      
+//        2        
+//       /
+//      5
     private static void test3() {
         System.out.print("只有左子结点，树B是树A的子结构：\t");
         BinaryTreeNode aNode1 = new BinaryTreeNode(8);
@@ -146,7 +178,13 @@ public class SubstructureInTree {
         bNode2.left = bNode3;
         System.out.println("expected = true , result = " + hasSubtree(aNode1, bNode1));
     }
-
+//                  8                8
+//              /       \           / \
+//             8         7         9   2
+//           /   \
+//          9     3
+//               / \
+//              4   7
     private static void test2() {
         System.out.print("树B不是树A的子结构：\t\t");
         BinaryTreeNode aNode1 = new BinaryTreeNode(8);
@@ -169,7 +207,13 @@ public class SubstructureInTree {
         bNode1.right = bNode3;
         System.out.println("expected = false , result = " + hasSubtree(aNode1, bNode1));
     }
-
+//                  8                8
+//              /       \           / \
+//             8         7         9   2
+//           /   \
+//          9     2
+//               / \
+//              4   7
     private static void test1() {
         System.out.print("树B是树A的子结构：\t\t");
         BinaryTreeNode aNode1 = new BinaryTreeNode(8);
