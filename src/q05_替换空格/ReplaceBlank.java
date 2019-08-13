@@ -1,7 +1,4 @@
-package q5_替换空格;
-
-import java.util.Arrays;
-import java.util.concurrent.ConcurrentHashMap;
+package q05_替换空格;
 
 public class ReplaceBlank {
     public static void main(String[] args) {

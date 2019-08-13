@@ -1,4 +1,4 @@
-package q9_两个栈实现队列;
+package q09_两个栈实现队列;
 
 import java.util.Collections;
 import java.util.Stack;

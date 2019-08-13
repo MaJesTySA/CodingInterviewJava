@@ -1,4 +1,4 @@
-package q3_01_数组重复数字;
+package q03_01_数组重复数字;
 
 import java.util.*;
 

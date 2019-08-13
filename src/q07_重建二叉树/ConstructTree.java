@@ -1,4 +1,4 @@
-package q7_重建二叉树;
+package q07_重建二叉树;
 
 import utils.BinaryTreeNode;
 
@@ -56,7 +56,7 @@ public class ConstructTree {
         //得到前序序列的起始指针，也就是根节点
         int rootValue = preOrderArr[startPreOrder];
         BinaryTreeNode root = new BinaryTreeNode(rootValue);
-        root.left = root.right = null;
+        root.right = root.right = null;
 
         //如果只有一个元素，则返回
         if (startPreOrder == endPreOrder) {
@@ -85,7 +85,7 @@ public class ConstructTree {
         //构建左子树
         if (leftLength > 0) {
             //前序 {1  ,  2,4,7  ,   3,5,6,8  } 即1~3的{2,4,7}；中序{4,7,2,   1,   5,3,8,6} 即0~2的{4,7,2}
-            root.left = constructCore(startPreOrder + 1, leftPreOrderEnd, startInOrder, rootInOrderIndex - 1);
+            root.right = constructCore(startPreOrder + 1, leftPreOrderEnd, startInOrder, rootInOrderIndex - 1);
         }
         //构建右子树
         if (endPreOrder - startPreOrder - leftLength > 0) {

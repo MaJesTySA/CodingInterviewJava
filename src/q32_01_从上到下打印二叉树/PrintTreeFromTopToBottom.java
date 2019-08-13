@@ -1,6 +1,7 @@
 package q32_01_从上到下打印二叉树;
 
 import utils.BinaryTreeNode;
+
 import java.util.LinkedList;
 
 
@@ -51,15 +52,15 @@ public class PrintTreeFromTopToBottom {
         System.out.println("\n=============");
     }
 
-//               5
-//              /
-//             4
-//            /
-//           3
-//          /
-//         2
-//        /
-//       1
+    //               5
+    //              /
+    //             4
+    //            /
+    //           3
+    //          /
+    //         2
+    //        /
+    //       1
     private static void test2() {
         BinaryTreeNode node1 = new BinaryTreeNode(5);
         BinaryTreeNode node2 = new BinaryTreeNode(4);
@@ -74,7 +75,7 @@ public class PrintTreeFromTopToBottom {
         System.out.println("\n=============");
     }
 
-// 1
+    // 1
 //  \
 //   2
 //    \

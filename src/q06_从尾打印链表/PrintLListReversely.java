@@ -1,4 +1,4 @@
-package q6_从尾打印链表;
+package q06_从尾打印链表;
 
 import java.util.Stack;
 

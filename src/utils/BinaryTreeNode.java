@@ -37,6 +37,6 @@ public class BinaryTreeNode {
         if (this.right != null) {
             this.right.postOrder();
         }
-        System.out.println(this.value + "->");
+        System.out.print(this.value + "->");
     }
 }

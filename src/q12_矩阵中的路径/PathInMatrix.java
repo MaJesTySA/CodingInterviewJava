@@ -134,6 +134,7 @@ public class PathInMatrix {
         boolean hasPath = false;
         int rows = matrix.length;
         int cols = matrix[0].length;
+
         if (row >= 0 && row < rows && col >= 0 && col < cols
                 && matrix[row][col] == str.charAt(pathLength)
                 && !visieted[row][col]) {

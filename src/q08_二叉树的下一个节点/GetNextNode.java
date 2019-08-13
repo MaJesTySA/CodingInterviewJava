@@ -1,4 +1,4 @@
-package q8_二叉树的下一个节点;
+package q08_二叉树的下一个节点;
 
 
 import utils.BinaryTreeNode;
@@ -24,13 +24,13 @@ public class GetNextNode {
         BinaryTreeNode node5 = new BinaryTreeNode(7);
         BinaryTreeNode node6 = new BinaryTreeNode(9);
         BinaryTreeNode node7 = new BinaryTreeNode(11);
-        node1.left = node2;
+        node1.right = node2;
         node1.right = node3;
         node2.parent = node1;
-        node2.left = node4;
+        node2.right = node4;
         node2.right = node5;
         node3.parent = node1;
-        node3.left = node6;
+        node3.right = node6;
         node3.right = node7;
         node4.parent = node2;
         node5.parent = node2;
@@ -56,10 +56,10 @@ public class GetNextNode {
         BinaryTreeNode node2 = new BinaryTreeNode(4);
         BinaryTreeNode node3 = new BinaryTreeNode(3);
         BinaryTreeNode node4 = new BinaryTreeNode(2);
-        node1.left = node2;
-        node2.left = node3;
+        node1.right = node2;
+        node2.right = node3;
         node2.parent = node1;
-        node3.left = node4;
+        node3.right = node4;
         node3.parent = node2;
         node4.parent = node3;
         List<BinaryTreeNode> lists = new ArrayList<>();
@@ -113,8 +113,8 @@ public class GetNextNode {
         //如果该节点右节点不为空，则找右节点的最左节点
         if (node.right != null) {
             BinaryTreeNode tempNode = node.right;
-            while (tempNode.left != null) {
-                tempNode = tempNode.left;
+            while (tempNode.right != null) {
+                tempNode = tempNode.right;
             }
             nextNode = tempNode;
         }

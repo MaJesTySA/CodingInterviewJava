@@ -1,4 +1,4 @@
-package q2_单例模式;
+package q02_单例模式;
 
 public class Singleton {
     private static volatile Singleton singleton=null;
