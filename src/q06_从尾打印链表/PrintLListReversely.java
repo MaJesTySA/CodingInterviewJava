@@ -9,6 +9,34 @@ public class PrintLListReversely {
         test3();
     }
 
+    private static void printWithStack(ListNode head) {
+        if (head == null) {
+            System.out.println("空链表");
+            return;
+        }
+        Stack<ListNode> stack = new Stack<>();
+        ListNode curNode = head;
+        while (curNode != null) {
+            stack.push(curNode);
+            curNode = curNode.next;
+        }
+        while (!stack.isEmpty()) {
+            System.out.print(stack.pop().value + "->");
+        }
+        System.out.println("HEAD");
+    }
+
+    private static void printWithRecur(ListNode head) {
+        if (head == null) {
+            System.out.println("空链表");
+            return;
+        }
+        if (head.next != null) {
+            printWithRecur(head.next);
+        }
+        System.out.print(head.value + "->");
+    }
+
     private static void test1() {
         ListNode node1 = new ListNode(5);
         ListNode node2 = new ListNode(8);
@@ -40,34 +68,6 @@ public class PrintLListReversely {
         printWithStack(null);
         System.out.print("递归方式测试空链表:");
         printWithRecur(null);
-    }
-
-    private static void printWithStack(ListNode head) {
-        if (head == null) {
-            System.out.println("空链表");
-            return;
-        }
-        Stack<ListNode> stack = new Stack<>();
-        ListNode curNode = head;
-        while (curNode != null) {
-            stack.push(curNode);
-            curNode = curNode.next;
-        }
-        while (!stack.isEmpty()) {
-            System.out.print(stack.pop().value + "->");
-        }
-        System.out.println("HEAD");
-    }
-
-    private static void printWithRecur(ListNode head) {
-        if (head == null) {
-            System.out.println("空链表");
-            return;
-        }
-        if (head.next != null) {
-            printWithRecur(head.next);
-        }
-        System.out.print(head.value + "->");
     }
 }
 
