@@ -11,6 +11,7 @@ public class DuplicationInArray {
         test5();
         test6();
     }
+
     /*
         空间复杂度 HashMap O(N)，时间复杂度O(N)。
      */
@@ -36,19 +37,18 @@ public class DuplicationInArray {
     /*
         空间复杂度O(1)，虽然有两重循环，但是时间复杂度是O(N)。
      */
-    private static Set<Integer> getDuplicateWithLessSpace(int[] arr) {
-        Set<Integer> result = new HashSet<>();
+    private static boolean getDuplicateWithLessSpace(int[] arr) {
         if (arr == null || arr.length < 0) {
-            return result;
+            return false;
         }
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] < 0 || arr[i] > arr.length - 1)
-                return result;
+                return false;
         }
         for (int i = 0; i < arr.length; i++) {
             while (arr[i] != i) {
                 if (arr[i] == arr[arr[i]]) {
-                    result.add(arr[i]);
+                    return true;
                 } else {
                     int temp = arr[i];
                     arr[i] = arr[temp];
@@ -56,7 +56,7 @@ public class DuplicationInArray {
                 }
             }
         }
-        return result;
+        return false;
     }
 
     private static void test6() {
