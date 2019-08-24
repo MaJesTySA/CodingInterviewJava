@@ -1,5 +1,7 @@
 package q06_从尾打印链表;
 
+import utils.ListNode;
+
 import java.util.Stack;
 
 public class PrintLListReversely {
@@ -23,7 +25,7 @@ public class PrintLListReversely {
         while (!stack.isEmpty()) {
             System.out.print(stack.pop().value + "->");
         }
-        System.out.println("HEAD");
+        System.out.println();
     }
 
     private static void printWithRecur(ListNode head) {
@@ -51,31 +53,20 @@ public class PrintLListReversely {
         printWithStack(node1);
         System.out.print("递归方式测试多个节点: ");
         printWithRecur(node1);
-        System.out.println("HEAD");
     }
 
     private static void test2() {
         ListNode node1 = new ListNode(5);
-        System.out.print("栈方式测试一个节点:  ");
+        System.out.print("\n栈方式测试一个节点:  ");
         printWithStack(node1);
         System.out.print("递归方式测试多个节点:");
         printWithRecur(node1);
-        System.out.println("HEAD");
     }
 
     private static void test3() {
-        System.out.print("栈方式测试空链表:  ");
+        System.out.print("\n栈方式测试空链表:  ");
         printWithStack(null);
         System.out.print("递归方式测试空链表:");
         printWithRecur(null);
-    }
-}
-
-class ListNode {
-    int value;
-    ListNode next;
-
-    public ListNode(int value) {
-        this.value = value;
     }
 }
