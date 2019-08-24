@@ -38,23 +38,20 @@ public class ConstructTree {
 
         //如果只有一个元素，则返回
         if (startPreOrder == endPreOrder) {
-            if (startInOrder == endInOrder && preOrderArr[startPreOrder] == inOrderArr[startInOrder]) {
+            if (startInOrder == endInOrder && preOrderArr[startPreOrder] == inOrderArr[startInOrder])
                 return root;
-            } else {
+            else
                 throw new Exception("Invalid input.");
-            }
         }
 
         //中序中找到根节点
         int rootInOrderIndex = startInOrder;
-        while (rootInOrderIndex < inOrderArr.length && inOrderArr[rootInOrderIndex] != rootValue) {
+        while (rootInOrderIndex < inOrderArr.length && inOrderArr[rootInOrderIndex] != rootValue)
             rootInOrderIndex++;
-        }
 
         //输入不匹配
-        if (rootInOrderIndex == inOrderArr.length - 1 && inOrderArr[rootInOrderIndex] != rootValue) {
+        if (rootInOrderIndex == inOrderArr.length - 1 && inOrderArr[rootInOrderIndex] != rootValue)
             throw new Exception("Invalid input.");
-        }
 
         //左子树长度
         int leftLength = rootInOrderIndex - startInOrder;
@@ -62,17 +59,15 @@ public class ConstructTree {
         int leftPreOrderEnd = startPreOrder + leftLength;
 
         //构建左子树
-        if (leftLength > 0) {
+        if (leftLength > 0)
             root.left = constructCore(preOrderArr, inOrderArr,
                     startPreOrder + 1, leftPreOrderEnd,
                     startInOrder, rootInOrderIndex - 1);
-        }
         //构建右子树
-        if (endPreOrder - startPreOrder - leftLength > 0) {
+        if (endPreOrder - startPreOrder - leftLength > 0)
             root.right = constructCore(preOrderArr, inOrderArr,
                     leftPreOrderEnd + 1, endPreOrder,
                     rootInOrderIndex + 1, endInOrder);
-        }
         return root;
     }
 
