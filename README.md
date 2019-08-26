@@ -1,4 +1,3 @@
-# 剑指Offer Java版
 > 注：所有图片均来自[CyC2018](https://github.com/CyC2018)。
 
 # 02_单例模式
@@ -59,7 +58,7 @@ for (int i = 0; i < arr.length; i++) {
 
 思路就是，对于一个不重复的排序数组，比如[0,1,2,3,4,5,6]，它的**每一个值就等于它的下标值**。但是如果出现了重复，**总有一个值不等于它的下标值**，比如[0,1,2,3,4,5,6,6,6,7]，下标为7的值为6，两者不相等，这时就说明数组有重复元素。
 
-![](https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/49d2adc1-b28a-44bf-babb-d44993f4a2e3.gif)
+<img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/49d2adc1-b28a-44bf-babb-d44993f4a2e3.gif" width=30% />
 
 这个方法只能找到第一个重复的数字。
 
@@ -94,7 +93,7 @@ return false;
 
 此时最右上角数字就是要查找的数字16，查找结束。
 
-![](https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/0ad9f7ba-f408-4999-a77a-9b73562c9088.gif)
+<img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/0ad9f7ba-f408-4999-a77a-9b73562c9088.gif" width=30%/>
 
 总结一下就是，选取数组最右上角的数字，如果等于要查找的数，结束；如果大于要查找的数，则删除该列；如果小于要查找的数，则删除该行。
 
@@ -149,7 +148,7 @@ for (int i = 0; i < str.length(); i++) {
 
 随后，开始移动P1，如果**不是空格**，**就复制**。如果**遇到空格**，P1向前移动一格，**P2插入"%20"**。最后当P1=P2时，循环结束。
 
-![](https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/6980aef0-debe-4b4b-8da5-8b1befbc1408.gif) 
+<img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/6980aef0-debe-4b4b-8da5-8b1befbc1408.gif" width=30%/>
 
 ```java
 while (oldPtr != newPtr) {
@@ -279,7 +278,7 @@ private static BinaryTreeNode constructCore(int[] preOrderArr, int[] inOrderArr,
 
 ①如果一个节点**有右子树**，那么该节点的下一节点就是**右子树的最左节点**。
 
-![](https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/b0611f89-1e5f-4494-a795-3544bf65042a.gif)
+<img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/b0611f89-1e5f-4494-a795-3544bf65042a.gif" width=30% />
 
 ②如果一个节点**没有右子树**，且它是**父节点的左子节点**，那么该节点的下一节点就是**其父节点**。
 
@@ -289,7 +288,7 @@ private static BinaryTreeNode constructCore(int[] preOrderArr, int[] inOrderArr,
 
 比如下图第一个节点，没有右子树，且不是父节点的左节点。此时来到它的父节点，它的父节点又是祖父节点的右节点，继续往上遍历，此时曾祖父节点是根节点的左节点，那么根节点就是下一个节点。
 
-![](https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/95080fae-de40-463d-a76e-783a0c677fec.gif)
+<img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/95080fae-de40-463d-a76e-783a0c677fec.gif" width=30%/>
 
 ```java
 private static BinaryTreeNode getNextNode(BinaryTreeNode node) {
@@ -308,13 +307,263 @@ private static BinaryTreeNode getNextNode(BinaryTreeNode node) {
     else if (node.parent != null) {
         BinaryTreeNode curNode = node;
         BinaryTreeNode pareNode = node.parent;
-         while (pareNode != null && curNode == pareNode.right) {
+        while (pareNode != null && curNode == pareNode.right) {
             curNode = pareNode;
             pareNode = pareNode.parent;
         }
         nextNode = pareNode;
     }
     return nextNode;
+}
+```
+
+# 09_两个栈实现队列
+
+> 用两个栈实现一个队列，完成在队列尾部插入节点，队列头部删除节点的功能
+
+[QueueWithTwoStacks](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q09_两个栈实现队列/QueueWithTwoStacks.java)
+
+总是把新元素添加进`stack1`。取出的话，当`stack2`不为空时，栈顶就是出队元素。为空时，则把`stack1`的元素依次压入`stack2`。
+
+<img src="https://github.com/CyC2018/CS-Notes/raw/master/notes/pics/3ea280b5-be7d-471b-ac76-ff020384357c.gif" width=50% />
+
+```java
+public void append(T node){
+    stack1.push(node);
+}
+
+public T delete(){
+    if (stack2.size()<=0){
+        while (stack1.size()>0){
+            stack2.push(stack1.pop());
+        }
+    }
+    if (stack2.size()==0){
+        System.out.println("队列已空");
+        return null;
+    }
+    return stack2.pop();
+}
+```
+
+## 两个队列实现栈
+
+```java
+public void push(T node) {
+    queue1.addLast(node);
+}
+
+public T pop() {
+    if (queue1.size() + queue2.size() > 0) {
+        //队列1为空，就把除队尾元素之外的所有元素放入队列2，则队列1剩下的元素，就是弹栈元素
+        if (!queue1.isEmpty()) {
+            while (queue1.size() > 1)
+                queue2.addLast(queue1.removeFirst());
+            return queue1.removeFirst();
+        //队列2为空，倒转逻辑。
+        } else {
+            while (queue2.size() > 1)
+                queue1.addLast(queue2.removeFirst());
+            return queue2.removeFirst();
+        }
+    } else {
+        System.out.println("空栈");
+        return null;
+    }
+}
+```
+
+# 10_斐波那契数列
+
+> 求斐波那契数列第n项
+
+[Fibonacci](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q10_斐波那契/Fibonacci.java)
+
+## 递归
+
+递归的性能较低，会导致大量重复计算。
+
+```java
+private static int fibWithRecur(int n) {
+    if (n <= 0)
+        return 0;
+    if (n == 1)
+        return 1;
+    return fibWithRecur(n - 1) + fibWithRecur(n - 2);
+}
+```
+
+## 循环
+
+循环可以利用之前计算的结果，性能比递归高。
+
+```java
+private static int fibWithWhile(int n) {
+    if (n <= 0)
+        return 0;
+    if (n == 1)
+        return 1;
+    int fibNMinusOne = 1;
+    int fibNMinusTwo = 0;
+    int fibN = 0;
+    for (int i = 2; i <= n; i++) {
+        fibN = fibNMinusOne + fibNMinusTwo;
+        fibNMinusTwo = fibNMinusOne;
+        fibNMinusOne = fibN;
+    }
+    return fibN;
+}
+```
+
+# 11_旋转数组的最小数字
+
+> 把一个数字最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个**递增排序**的数组的一个旋转，输出旋转数组的最小元素。例如，数组{3, 4, 5, 1, 2}为{1, 2, 3, 4, 5}的一个旋转，最小值为1。
+
+[FindRotateMin](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q11_旋转数组找到最小值/FindRotateMin.java)
+
+最直观的解法就是就是从头到尾遍历，找到最小的数，时间复杂度是O(N)。注意，是**递增排序**的数组，看到**递增排序**，就要想到**二分法**。
+
+将旋转后的数组分成**两个序列**，一个是前面的大值序列，一个是后面的小值序列，大小序列的分界点，就是最小元素。维护**两个指针**，一个指向前面序列的第一个元素，一个指向后面序列的最后一个元素。
+
+每一次，取中间值，如果中间值**大于第一个指针**，那么最小值只可能在它的**后面**，所以让第一个指针指向中间值。如果中间值**小于第二个指针**，那么最小值只可能在它的**前面**，所以让第二个指针指向中间值。
+
+当两个指针的距离为1时，表明第一个指针已经到了大值序列的尾部，第二个指针已经到了小值序列的头部，所以小值序列的头部就是最小数字。
+
+当然，也有特殊情况，当第一个指针和第二个指针，以及中间值都一样时，只能通过顺序查找的方式查找。
+
+```java
+private static int findMin(int[] arr) throws Exception {
+    if (arr == null || arr.length <= 0)
+        throw new Exception("数组为空！");
+    int start = 0;
+    int end = arr.length - 1;
+    //考虑到本身就是有序的情况，那么第一个元素就是最小值
+    if (arr[start] < arr[end]) {
+        return arr[start];
+    }
+    while (end - start != 1) {
+        int mid = (start + end) / 2;
+        //使用顺序查找
+        if (arr[start] == arr[end] && arr[start] == arr[mid]) {
+            return orderFind(arr, start, end);
+        }
+        //中间值大于起始值，中间值位于前面的序列，最小值在中间值的右边。
+        if (arr[mid] >= arr[start])
+            start = mid;
+        else if (arr[mid] <= arr[end]) {
+            end = mid;
+        }
+    }
+    return arr[end];
+}
+
+private static int orderFind(int[] arr, int start, int end) {
+    int res = arr[start];
+    for (int i = start + 1; i <= end; i++) {
+        if (res > arr[i]) {
+            res = arr[i];
+        }
+    }
+    return res;
+}
+```
+
+# 12_矩阵中的路径
+
+> 设计一个函数，用来判断一个矩阵中是否存在一条包含某个字符串所有字符的路径。路径可以从矩阵中的**任意一格**开始，每一步可以在矩阵中向**四个方向**移动一格。**如果进入过了，就不能再次进入**。
+
+[PathInMatrix](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q12_矩阵中的路径/PathInMatrix.java)
+
+典型的**回溯法**问题。从头到尾遍历每个矩阵的字符。
+
+```java
+private static boolean hasPath(char[][] matrix, String str) {
+    if (matrix == null || matrix.length <= 0 || str == null || str.length() == 0) 
+        return false;
+    int rows = matrix.length;
+    int cols = matrix[0].length;
+    boolean[][] visited = new boolean[rows][cols];
+    int pathLength = 0;
+    for (int row = 0; row < rows; row++) {
+        for (int col = 0; col < cols; col++) {
+            if (hasPathCore(matrix, row, col, str, pathLength, visited)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+```
+
+如果**当前字符**等于**字符串所在位置的字符**，那么就使`pathLength++`，并且`visited`为true，接着从四个方向，重复该步骤。如果四个方向都走不通，就会返回false，那就说明这条路径也走不通，那就回去，`pathLength--`，并置`visited`为false。
+
+```java
+private static boolean hasPathCore(char[][] matrix, int row, int col, String str, int pathLength, boolean[][] visited) {
+    if (pathLength == str.length())
+        return true;
+    boolean hasPath = false;
+    int rows = matrix.length;
+    int cols = matrix[0].length;
+
+    if (row >= 0 && row < rows && col >= 0 && col < cols
+                && matrix[row][col] == str.charAt(pathLength)
+                && !visited[row][col]) {
+        ++pathLength;
+        visited[row][col] = true;
+		//看该格子的四个方向能否走通
+        hasPath = hasPathCore(matrix, row, col - 1, str, pathLength, visited) ||
+                    hasPathCore(matrix, row - 1, col, str, pathLength, visited) ||
+                    hasPathCore(matrix, row, col + 1, str, pathLength, visited) ||
+                    hasPathCore(matrix, row + 1, col, str, pathLength, visited);
+        //走不通就回溯
+        if (!hasPath) {
+            --pathLength;
+            visited[row][col] = false;
+        }
+    }
+    return hasPath;
+}
+```
+
+# 13_机器人的运动范围
+
+> 地上有一个m*n的方格，一个机器人从坐标(0,0)开始移动，每次只能向四个方向移动1格，但不能进入行坐标和列坐标之和大于k的格子。例如当k=18时，机器人能够进入方格(35,37)，以为3+5+3+7=18，但不能进入(35,38)。请问该机器人能够到达多少个格子？
+
+[RobotMove](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q13_机器人运动范围/RobotMove.java)
+
+思路跟12题类似，也是回溯法，只是需要增加进入的条件。
+
+```java
+private static int getDigitSum(int number) {
+    int sum = 0;
+    while (number > 0) {
+        sum += number % 10;
+        number /= 10;
+    }
+    return sum;
+}
+
+//检查能否进入matrix[row][col]
+private static boolean check(int threshold, int rows, int cols, int row, int col, boolean[][] visited) {
+    return (row >= 0 && row < rows && col >= 0 && col < cols
+                && getDigitSum(row) + getDigitSum(col) <= threshold
+                && !visited[row][col]);
+}
+```
+
+然后开始回溯。
+
+```java
+private static int movingCountCore(int threshold, int rows, int cols, int row, int col, boolean[][] visited) {
+    int count = 0;
+    if (check(threshold, rows, cols, row, col, visited)) {
+        visited[row][col] = true;
+        count = 1 + movingCountCore(threshold, rows, cols, row - 1, col, visited) +
+                    movingCountCore(threshold, rows, cols, row, col - 1, visited) +
+                    movingCountCore(threshold, rows, cols, row + 1, col, visited) +
+                    movingCountCore(threshold, rows, cols, row, col + 1, visited);
+    }
+    return count;
 }
 ```
 
