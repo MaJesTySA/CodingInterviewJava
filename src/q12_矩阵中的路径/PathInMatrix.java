@@ -16,6 +16,51 @@ public class PathInMatrix {
         test12();
     }
 
+    private static boolean hasPath(char[][] matrix, String str) {
+        if (matrix == null || matrix.length <= 0 || str == null || str.length() == 0) {
+            return false;
+        }
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        boolean[][] visited = new boolean[rows][cols];
+        int pathLength = 0;
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                if (hasPathCore(matrix, row, col, str, pathLength, visited)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasPathCore(char[][] matrix, int row, int col, String str, int pathLength, boolean[][] visieted) {
+        if (pathLength == str.length())
+            return true;
+        boolean hasPath = false;
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        if (row >= 0 && row < rows && col >= 0 && col < cols
+                && matrix[row][col] == str.charAt(pathLength)
+                && !visieted[row][col]) {
+            ++pathLength;
+            visieted[row][col] = true;
+
+            hasPath = hasPathCore(matrix, row, col - 1, str, pathLength, visieted) ||
+                    hasPathCore(matrix, row - 1, col, str, pathLength, visieted) ||
+                    hasPathCore(matrix, row, col + 1, str, pathLength, visieted) ||
+                    hasPathCore(matrix, row + 1, col, str, pathLength, visieted);
+            if (!hasPath) {
+                --pathLength;
+                visieted[row][col] = false;
+            }
+
+        }
+        return hasPath;
+    }
+
+
     private static void test1() {
         char[][] matrix = new char[][]{{'A', 'B', 'T', 'G'}, {'C', 'F', 'C', 'S'}, {'J', 'D', 'E', 'H'}};
         String str = "BFCE";
@@ -110,47 +155,5 @@ public class PathInMatrix {
         System.out.println("expected = false" + "  result = " + hasPath(matrix, str));
     }
 
-    private static boolean hasPath(char[][] matrix, String str) {
-        if (matrix == null || matrix.length <= 0 || str == null || str.length() == 0) {
-            return false;
-        }
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-        boolean[][] visited = new boolean[rows][cols];
-        int pathLength = 0;
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                if (hasPathCore(matrix, row, col, str, pathLength, visited)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
-    private static boolean hasPathCore(char[][] matrix, int row, int col, String str, int pathLength, boolean[][] visieted) {
-        if (pathLength == str.length())
-            return true;
-        boolean hasPath = false;
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-
-        if (row >= 0 && row < rows && col >= 0 && col < cols
-                && matrix[row][col] == str.charAt(pathLength)
-                && !visieted[row][col]) {
-            ++pathLength;
-            visieted[row][col] = true;
-
-            hasPath = hasPathCore(matrix, row, col - 1, str, pathLength, visieted) ||
-                    hasPathCore(matrix, row - 1, col, str, pathLength, visieted) ||
-                    hasPathCore(matrix, row, col + 1, str, pathLength, visieted) ||
-                    hasPathCore(matrix, row + 1, col, str, pathLength, visieted);
-            if (!hasPath) {
-                --pathLength;
-                visieted[row][col] = false;
-            }
-
-        }
-        return hasPath;
-    }
 }
