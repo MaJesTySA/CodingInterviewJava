@@ -34,7 +34,7 @@ public class PathInMatrix {
         return false;
     }
 
-    private static boolean hasPathCore(char[][] matrix, int row, int col, String str, int pathLength, boolean[][] visieted) {
+    private static boolean hasPathCore(char[][] matrix, int row, int col, String str, int pathLength, boolean[][] visited) {
         if (pathLength == str.length())
             return true;
         boolean hasPath = false;
@@ -43,17 +43,17 @@ public class PathInMatrix {
 
         if (row >= 0 && row < rows && col >= 0 && col < cols
                 && matrix[row][col] == str.charAt(pathLength)
-                && !visieted[row][col]) {
+                && !visited[row][col]) {
             ++pathLength;
-            visieted[row][col] = true;
+            visited[row][col] = true;
 
-            hasPath = hasPathCore(matrix, row, col - 1, str, pathLength, visieted) ||
-                    hasPathCore(matrix, row - 1, col, str, pathLength, visieted) ||
-                    hasPathCore(matrix, row, col + 1, str, pathLength, visieted) ||
-                    hasPathCore(matrix, row + 1, col, str, pathLength, visieted);
+            hasPath = hasPathCore(matrix, row, col - 1, str, pathLength, visited) ||
+                    hasPathCore(matrix, row - 1, col, str, pathLength, visited) ||
+                    hasPathCore(matrix, row, col + 1, str, pathLength, visited) ||
+                    hasPathCore(matrix, row + 1, col, str, pathLength, visited);
             if (!hasPath) {
                 --pathLength;
-                visieted[row][col] = false;
+                visited[row][col] = false;
             }
 
         }
