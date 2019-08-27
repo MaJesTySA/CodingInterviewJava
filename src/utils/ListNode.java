@@ -9,11 +9,11 @@ public class ListNode {
     }
 
     public static void print(ListNode head) {
-        if (head == null || head.next == null) {
+        if (head == null) {
             System.out.println("空链表");
             return;
         }
-        ListNode curListNode = head.next;
+        ListNode curListNode = head;
         while (curListNode != null) {
             System.out.print(curListNode.value + "->");
             curListNode = curListNode.next;
