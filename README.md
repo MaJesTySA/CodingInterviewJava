@@ -751,3 +751,69 @@ private static double powerWithBit(double base, int exp) {
 }
 ```
 
+# 17_打印从1到最大的n位数
+
+> 输入数字n，按顺序打印从1到最大的n位十进制数。
+
+[Print1ToMaxOfNDigits](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q17_打印1到最大的n位数/Print1ToMaxOfNDigits.java)
+
+## 想当然的解法
+
+```java
+private static void print(int n) {
+    for (int i = 0; i < (int) Math.pow(10, n); i++) 
+        System.out.print(i + "\t");
+}
+```
+
+这种解法无法处理当n超过int，甚至long范围的情况。所以应该用字符串来处理。
+
+# 18_01_删除链表节点
+
+> 在O(1)时间内删除链表节点
+
+[DeleteNodeInList](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q18_01_删除链表的节点/DeleteNodeInList.java)
+
+## 常规解法
+
+遍历整个链表，当当前节点下一个节点为要删除节点时，令当前节点下一个节点为要删除节点的下一个节点。时间复杂度是O(n)。
+
+```java
+ListNode curNode=head;
+while (curNode.next!=deleted)
+    curNode=curNode.next;
+curNode.next=deleted.next;
+```
+
+## O(1)解法
+
+不需要遍历，先取出需要删除节点`deleted`的下一个节点`next`，然后将`next`复制给删除节点`deleted`，最后让`deleted.next`指向`next.next`即可。
+
+```java
+private static void delete(ListNode head, ListNode deleted) {
+    if (head == null || deleted == null) 
+        return;
+    if (deleted.next != null) {
+        //找到被删除节点的下一个节点
+        ListNode next = deleted.next;
+        //将下一个节点的内容，复制给被删除节点
+        deleted.value = next.value;
+        //由于被删除节点的Next指向了删除节点Next的Next，所以next成了垃圾，会被GC
+        deleted.next = next.next;
+    } else if (head == deleted) {
+        //这里由于java不支持手动释放内存，head作为值传递，就算置为null，
+        //原来的head还是引用着对象，无法释放，需要手动释放。
+        head = null;
+    //删除尾节点
+    } else {
+        ListNode tmp = head;
+        while (tmp.next != deleted) {
+            tmp = tmp.next;
+        }
+        tmp.next = null;
+    }
+}
+```
+
+
+
