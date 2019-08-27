@@ -632,6 +632,10 @@ private static int maxProductAfterCutting_GA(int length) {
 
 # 15_二进制中1的个数
 
+> 实现一个函数，输入一个整数，输出该数二进制表示中1的个数。
+
+[NumberOf1InBinary](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q15_二进制1的个数/NumberOf1InBinary.java)
+
 ## 可能引起死循环的解法
 
 很自然的想到，让该数与1与，为1就表示该位为1。然后右移该数，直到为0。
@@ -683,6 +687,67 @@ private static int numberOfOneMinus(long n) {
         n = (n - 1) & n;
     }
     return count;
+}
+```
+
+# 16_数值的整数次方
+
+> 实现一个次方函数
+
+[Power](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q16_数值的整数次方/Power.java)
+
+## 循环解法
+
+```java
+private static double pow(double base, int exp) {
+    invalidInput = false;
+    if (base == 0.0 && exp < 0) {
+        invalidInput = true;
+        return 0.0;
+    }
+    if (exp < 0) {
+        double result = power(base, -exp);
+        return 1.0 / result;
+    }
+    return power(base, exp);
+}
+
+private static double power(double base, int exp) {
+    double result = 1.0;
+    for (int i = 0; i < exp; i++) {
+        result *= base;
+    }
+    return result;
+}
+```
+
+## 位运算法
+
+```java
+private static double powWithBit(double base, int exp) {
+    invalidInput = false;
+    if (base == 0.0 && exp < 0) {
+        invalidInput = true;
+        return 0.0;
+    }
+    if (exp < 0) {
+        double result = powerWithBit(base, -exp);
+        return 1.0 / result;
+    }
+    return powerWithBit(base, exp);
+}
+
+private static double powerWithBit(double base, int exp) {
+    if (exp == 0)
+        return 1;
+    if (exp == 1)
+        return base;
+    double result = powerWithBit(base, exp >> 1);
+    result *= result;
+    //如果exp是奇数
+    if ((exp & 0x1) == 1)
+        result *= base;
+    return result;
 }
 ```
 
