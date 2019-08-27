@@ -319,6 +319,8 @@ private static BinaryTreeNode getNextNode(BinaryTreeNode node) {
 
 # 09_两个栈实现队列
 
+## 两个栈实现队列
+
 > 用两个栈实现一个队列，完成在队列尾部插入节点，队列头部删除节点的功能
 
 [QueueWithTwoStacks](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q09_两个栈实现队列/QueueWithTwoStacks.java)
@@ -347,6 +349,8 @@ public T delete(){
 ```
 
 ## 两个队列实现栈
+
+[StackWithTwoQueue](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q09_两个栈实现队列/StackWithTwoQueue.java)
 
 ```java
 public void push(T node) {
@@ -562,6 +566,121 @@ private static int movingCountCore(int threshold, int rows, int cols, int row, i
                     movingCountCore(threshold, rows, cols, row, col - 1, visited) +
                     movingCountCore(threshold, rows, cols, row + 1, col, visited) +
                     movingCountCore(threshold, rows, cols, row, col + 1, visited);
+    }
+    return count;
+}
+```
+
+# 14_剪绳子
+
+> 给你一根长度为n的绳子，请把绳子剪成m段（m、n都是整数，且都大于1），每段绳子的长度即为k[0]，k[1]，k[2]，···，k[m]。请问最大乘积是多少？
+
+[CuttingRope](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q14_剪绳子/CuttingRope.java)
+
+## 动态规划
+
+假设f(n)表示把长度为n的绳子剪成若干段后，乘积的最大值。那么剪第一刀，有n-1种结果：1和n-1，2和n-2，i和n-i。那么`f(n)=max(f(i)*f(n-i))`。注意，当绳长<4时，最大的绳长就是不剪，比如绳长为3，最大的就是它自己1x3=3，而不是两段，1x2=2。当绳长大于等于4时，最大的绳长需要剪。
+
+```java
+private static int maxProductAfterCutting_DP(int length) {
+    if (length < 2)
+        return 0;
+    if (length == 2)
+        return 1;
+    if (length == 3)
+        return 2;
+    //products储存每段最大的乘积
+    int[] products = new int[length + 1];
+    //为什么products[3]=3，而不是2，是因为如果长度大于3,3可以不减。
+    products[1] = 1;
+    products[2] = 2;
+    products[3] = 3;
+    int max;
+    for (int i = 4; i <= length; i++) {
+        max = 0;
+        for (int j = 1; j <= i / 2; j++) {
+            int product = products[j] * products[i - j];
+            if (max < product)
+                max = product;
+            products[i] = max;
+        }
+    }
+    max = products[length];
+    return max;
+}
+```
+
+## 贪心算法
+
+尽可能得剪长度为3的绳子，当最后剩下的长度为4时，不能再去剪长度为3的绳子。因为2x2>1x3。
+
+```java
+private static int maxProductAfterCutting_GA(int length) {
+    if (length < 2)
+        return 0;
+    if (length == 2)
+        return 1;
+    if (length == 3)
+        return 2;
+    int timesOf3 = length / 3;
+    if (length - timesOf3 * 3 == 1)
+        timesOf3 -= 1;
+    int timesOf2 = (length - timesOf3 * 3) / 2;
+    return (int) Math.pow(3, timesOf3) * (int) Math.pow(2, timesOf2);
+}
+```
+
+# 15_二进制中1的个数
+
+## 可能引起死循环的解法
+
+很自然的想到，让该数与1与，为1就表示该位为1。然后右移该数，直到为0。
+
+```java
+private static int numberOfOneRight(long n) {
+    int count = 0;
+    while (n != 0) {
+        if ((n & 1) > 0) {
+            count++;
+        }
+        n = n >> 1;
+    }
+    return count;
+}
+```
+
+这个方法有个缺陷，如果输入的是个负数，使用>>（符号右移），最高位始终是1，会导致死循环（始终在0xFFFF循环）。
+
+## 常规解法
+
+我们不再移动该数，而是移动一个标志位，每一次让该标志位左移1位。
+
+```java
+private static int numberOfOneLeft(long n) {
+    int count = 0;
+    int flag = 1;
+    //& 0xFFFF
+    while (flag != 0) {
+        if ((n & flag) > 0) 
+            count++;
+        flag = flag << 1;
+    }
+    return count;
+}
+```
+
+这种解法每一位都需要循环`Integer.MAX_VALUE/2`次。
+
+## 巧解法
+
+一个数减去1后再与自身与，就能把该数最右边的1变成0，count++，直到该数为0。
+
+```java
+private static int numberOfOneMinus(long n) {
+    int count = 0;
+    while (n != 0) {
+        count++;
+        n = (n - 1) & n;
     }
     return count;
 }
