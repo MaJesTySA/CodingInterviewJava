@@ -5,56 +5,79 @@ import utils.ListNode;
 public class DeleteDuplicatedNode {
     public static void main(String[] args) {
         test1();
-        System.out.println("=================");
         test2();
-        System.out.println("=================");
         test3();
-        System.out.println("=================");
         test4();
-        System.out.println("=================");
         test5();
-        System.out.println("=================");
         test6();
-        System.out.println("=================");
         test7();
-        System.out.println("=================");
         test8();
-        System.out.println("=================");
         test9();
+        test10();
+    }
+
+    private static ListNode deleteDup(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
+        ListNode preNode = null;
+        ListNode curNode = head;
+        while (curNode != null) {
+            ListNode nextNode = curNode.next;
+            boolean needDelete = false;
+            if (nextNode != null && nextNode.value == curNode.value)
+                needDelete = true;
+            if (!needDelete) {
+                preNode = curNode;
+                curNode = curNode.next;
+            } else {
+                ListNode deleteNode = curNode;
+                while (deleteNode != null && deleteNode.value == curNode.value) {
+                    deleteNode = deleteNode.next;
+                }
+                if (preNode == null)
+                    head = deleteNode;
+                else
+                    preNode.next = deleteNode;
+                curNode = deleteNode;
+            }
+        }
+        return head;
     }
 
     private static void test10() {
         System.out.println("空链表");
-        ListNode head = new ListNode(Integer.MIN_VALUE);
         ListNode node1 = null;
-        head.next = node1;
-        print(head);
-        delete(head);
-        print(head);
+        ListNode.print(node1);
+        ListNode.print(deleteDup(node1));
+        System.out.println("=============");
     }
 
     private static void test9() {
         System.out.println("链表中只有两个重复的节点");
         ListNode node1 = new ListNode(1);
         ListNode node2 = new ListNode(1);
-        linkAndPrint(node1, node2);
+        node1.next = node2;
+        ListNode.print(node1);
+        ListNode.print(deleteDup(node1));
+        System.out.println("=============");
     }
 
     private static void test8() {
         System.out.println("链表中只有一个的节点");
-        ListNode head = new ListNode(Integer.MIN_VALUE);
         ListNode node1 = new ListNode(1);
-        head.next = node1;
-        print(head);
-        delete(head);
-        print(head);
+        ListNode.print(node1);
+        ListNode.print(deleteDup(node1));
+        System.out.println("=============");
     }
 
     private static void test7() {
         System.out.println("链表中只有两个不重复的节点");
         ListNode node1 = new ListNode(1);
         ListNode node2 = new ListNode(2);
-        linkAndPrint(node1, node2);
+        node1.next = node2;
+        ListNode.print(node1);
+        ListNode.print(deleteDup(node1));
+        System.out.println("=============");
     }
 
     private static void test6() {
@@ -67,7 +90,16 @@ public class DeleteDuplicatedNode {
         ListNode node6 = new ListNode(4);
         ListNode node7 = new ListNode(5);
         ListNode node8 = new ListNode(5);
-        linkAndPrint(node1, node2, node3, node4, node5, node6, node7, node8);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node5;
+        node5.next = node6;
+        node6.next = node7;
+        node7.next = node8;
+        ListNode.print(node1);
+        ListNode.print(deleteDup(node1));
+        System.out.println("=============");
     }
 
     private static void test5() {
@@ -80,7 +112,16 @@ public class DeleteDuplicatedNode {
         ListNode node6 = new ListNode(3);
         ListNode node7 = new ListNode(4);
         ListNode node8 = new ListNode(4);
-        linkAndPrint(node1, node2, node3, node4, node5, node6, node7, node8);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node5;
+        node5.next = node6;
+        node6.next = node7;
+        node7.next = node8;
+        ListNode.print(node1);
+        ListNode.print(deleteDup(node1));
+        System.out.println("=============");
     }
 
     private static void test4() {
@@ -92,7 +133,15 @@ public class DeleteDuplicatedNode {
         ListNode node5 = new ListNode(1);
         ListNode node6 = new ListNode(1);
         ListNode node7 = new ListNode(1);
-        linkAndPrint(node1, node2, node3, node4, node5, node6, node7);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node5;
+        node5.next = node6;
+        node6.next = node7;
+        ListNode.print(node1);
+        ListNode.print(deleteDup(node1));
+        System.out.println("=============");
     }
 
     private static void test3() {
@@ -104,7 +153,15 @@ public class DeleteDuplicatedNode {
         ListNode node5 = new ListNode(1);
         ListNode node6 = new ListNode(1);
         ListNode node7 = new ListNode(2);
-        linkAndPrint(node1, node2, node3, node4, node5, node6, node7);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node5;
+        node5.next = node6;
+        node6.next = node7;
+        ListNode.print(node1);
+        ListNode.print(deleteDup(node1));
+        System.out.println("=============");
     }
 
     private static void test2() {
@@ -116,7 +173,15 @@ public class DeleteDuplicatedNode {
         ListNode node5 = new ListNode(5);
         ListNode node6 = new ListNode(6);
         ListNode node7 = new ListNode(7);
-        linkAndPrint(node1, node2, node3, node4, node5, node6, node7);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+        node4.next = node5;
+        node5.next = node6;
+        node6.next = node7;
+        ListNode.print(node1);
+        ListNode.print(deleteDup(node1));
+        System.out.println("=============");
     }
 
     private static void test1() {
@@ -128,82 +193,15 @@ public class DeleteDuplicatedNode {
         ListNode node5 = new ListNode(4);
         ListNode node6 = new ListNode(4);
         ListNode node7 = new ListNode(5);
-        linkAndPrint(node1, node2, node3, node4, node5, node6, node7);
-    }
-
-    private static void delete(ListNode head) {
-        if (head == null || head.next == null)
-            return;
-        ListNode preNode = head;
-        ListNode curNode = head.next;
-        while (curNode != null) {
-            ListNode next = curNode.next;
-            boolean needDelete = false;
-            if (next != null && next.value == curNode.value)
-                needDelete = true;
-            if (!needDelete) {
-                preNode = curNode;
-                curNode = curNode.next;
-            } else {
-                ListNode toBeDel = curNode;
-                while (toBeDel != null && toBeDel.value == curNode.value) {
-                    toBeDel = toBeDel.next;
-                }
-                preNode.next = toBeDel;
-                curNode = toBeDel;
-            }
-        }
-    }
-
-    private static void print(ListNode head) {
-        if (head == null || head.next == null) {
-            System.out.println("空链表");
-            return;
-        }
-        ListNode curListNode = head.next;
-        while (curListNode != null) {
-            System.out.print(curListNode.value + "->");
-            curListNode = curListNode.next;
-        }
-        System.out.println("NULL");
-    }
-
-    private static void linkAndPrint(ListNode node1, ListNode node2, ListNode node3, ListNode node4, ListNode node5, ListNode node6, ListNode node7) {
-        ListNode head = new ListNode(Integer.MIN_VALUE);
-        head.next = node1;
         node1.next = node2;
         node2.next = node3;
         node3.next = node4;
         node4.next = node5;
         node5.next = node6;
         node6.next = node7;
-        print(head);
-        delete(head);
-        print(head);
-    }
-
-    private static void linkAndPrint(ListNode node1, ListNode node2, ListNode node3, ListNode node4, ListNode node5, ListNode node6, ListNode node7, ListNode node8) {
-        ListNode head = new ListNode(Integer.MIN_VALUE);
-        head.next = node1;
-        node1.next = node2;
-        node2.next = node3;
-        node3.next = node4;
-        node4.next = node5;
-        node5.next = node6;
-        node6.next = node7;
-        node7.next = node8;
-        print(head);
-        delete(head);
-        print(head);
-    }
-
-    private static void linkAndPrint(ListNode node1, ListNode node2) {
-        ListNode head = new ListNode(Integer.MIN_VALUE);
-        head.next = node1;
-        node1.next = node2;
-        print(head);
-        delete(head);
-        print(head);
+        ListNode.print(node1);
+        ListNode.print(deleteDup(node1));
+        System.out.println("=============");
     }
 }
 
