@@ -11,9 +11,9 @@ public class DeleteNodeInList {
         test5();
     }
 
-    private static void delete(ListNode head, ListNode deleted) {
+    private static ListNode delete(ListNode head, ListNode deleted) {
         if (head == null || deleted == null) {
-            return;
+            return null;
         }
         if (deleted.next != null) {
             //找到被删除节点的下一个节点
@@ -31,6 +31,7 @@ public class DeleteNodeInList {
             }
             tmp.next = null;
         }
+        return head;
     }
 
     private static void test1() {
@@ -45,8 +46,8 @@ public class DeleteNodeInList {
         listNode4.next = listNode5;
         System.out.println("删除中间节点");
         ListNode.print(listNode1);
-        delete(listNode1, listNode3);
-        ListNode.print(listNode1);
+        ListNode head=delete(listNode1, listNode3);
+        ListNode.print(head);
         System.out.println("==================");
     }
 
@@ -62,8 +63,8 @@ public class DeleteNodeInList {
         listNode4.next = listNode5;
         System.out.println("删除尾节点");
         ListNode.print(listNode1);
-        delete(listNode1, listNode5);
-        ListNode.print(listNode1);
+        ListNode head=delete(listNode1, listNode5);
+        ListNode.print(head);
         System.out.println("==================");
     }
 
@@ -79,8 +80,8 @@ public class DeleteNodeInList {
         listNode4.next = listNode5;
         System.out.println("删除第一个节点");
         ListNode.print(listNode1);
-        delete(listNode1, listNode1);
-        ListNode.print(listNode1);
+        ListNode head=delete(listNode1, listNode1);
+        ListNode.print(head);
         System.out.println("==================");
     }
 
@@ -88,10 +89,8 @@ public class DeleteNodeInList {
         ListNode listNode1 = new ListNode(1);
         System.out.println("只有一个节点");
         ListNode.print(listNode1);
-        delete(listNode1, listNode1);
-        //由于是值传递，传递进delete函数，并不能使listNode1指向为null，所以必须手动置listNode为null。
-        listNode1 = null;
-        ListNode.print(listNode1);
+        ListNode head=delete(listNode1, listNode1);
+        ListNode.print(head);
         System.out.println("==================");
     }
 
@@ -99,8 +98,8 @@ public class DeleteNodeInList {
         ListNode listNode1 = null;
         ListNode.print(listNode1);
         System.out.println("删除空链表");
-        delete(listNode1, listNode1);
-        ListNode.print(listNode1);
+        ListNode head=delete(listNode1, listNode1);
+        ListNode.print(head);
         System.out.println("==================");
     }
 }

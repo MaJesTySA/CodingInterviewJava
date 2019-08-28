@@ -768,6 +768,8 @@ private static void print(int n) {
 
 这种解法无法处理当n超过int，甚至long范围的情况。所以应该用字符串来处理。
 
+
+
 # 18_01_删除链表节点
 
 > 在O(1)时间内删除链表节点
@@ -790,7 +792,7 @@ curNode.next=deleted.next;
 不需要遍历，先取出需要删除节点`deleted`的下一个节点`next`，然后将`next`复制给删除节点`deleted`，最后让`deleted.next`指向`next.next`即可。
 
 ```java
-private static void delete(ListNode head, ListNode deleted) {
+private static ListNode delete(ListNode head, ListNode deleted) {
     if (head == null || deleted == null) 
         return;
     if (deleted.next != null) {
@@ -801,8 +803,6 @@ private static void delete(ListNode head, ListNode deleted) {
         //由于被删除节点的Next指向了删除节点Next的Next，所以next成了垃圾，会被GC
         deleted.next = next.next;
     } else if (head == deleted) {
-        //这里由于java不支持手动释放内存，head作为值传递，就算置为null，
-        //原来的head还是引用着对象，无法释放，需要手动释放。
         head = null;
     //删除尾节点
     } else {
@@ -812,8 +812,15 @@ private static void delete(ListNode head, ListNode deleted) {
         }
         tmp.next = null;
     }
+    return head;
 }
 ```
+
+18_02_删除链表重复节点
+
+> 一个排序的链表中，删除重复节点
+
+[DeleteDuplicatedNode](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q18_02_删除链表重复节点/DeleteDuplicatedNode.java)
 
 
 
