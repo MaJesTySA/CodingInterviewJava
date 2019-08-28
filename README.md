@@ -768,8 +768,6 @@ private static void print(int n) {
 
 这种解法无法处理当n超过int，甚至long范围的情况。所以应该用字符串来处理。
 
-
-
 # 18_01_删除链表节点
 
 > 在O(1)时间内删除链表节点
@@ -816,11 +814,94 @@ private static ListNode delete(ListNode head, ListNode deleted) {
 }
 ```
 
-18_02_删除链表重复节点
+# 18_02_删除链表重复节点
 
 > 一个排序的链表中，删除重复节点
 
 [DeleteDuplicatedNode](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q18_02_删除链表重复节点/DeleteDuplicatedNode.java)
 
+维护两个指针，一个`preNode`，一个`curNode`，`preNode`是`curNode`的前一个结点。
 
+遍历链表，如果当前节点与下一个节点值不相等，移动`curNode`和`preNode`。否则，记标志位`needDelete`为`true`。然后令`deleteNode`为当前节点，如果`curNode.value == deleteNode.value`，那么就移动`deleteNode`，直到不等。此时，`deleteNode`指向了下一个不重复的节点，令`preNode.next`等于它即可。
+
+```java
+private static ListNode deleteDup(ListNode head) {
+    if (head == null || head.next == null)
+        return head;
+    ListNode preNode = null;
+    ListNode curNode = head;
+    while (curNode != null) {
+        ListNode nextNode = curNode.next;
+        boolean needDelete = false;
+        if (nextNode != null && nextNode.value == curNode.value)
+            needDelete = true;
+        if (!needDelete) {
+            preNode = curNode;
+            curNode = curNode.next;
+        } else {
+            ListNode deleteNode = curNode;
+            while (deleteNode != null && deleteNode.value == curNode.value) {
+                deleteNode = deleteNode.next;
+            }
+            if (preNode == null)
+                head = deleteNode;
+            else
+                preNode.next = deleteNode;
+            curNode = deleteNode;
+        }
+    }
+    return head;
+}
+```
+
+# 20_表示数值的字符串
+
+> 实现一个函数用来判断字符串是否表示数值（包括整数和小数）。
+
+[NumericStrings](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q20_表示数值的字符串/NumericStrings.java)
+
+表示数值的字符串遵循A&#91;.[B]]&#91;e|EC]或者.B&#91;e|EC]，其中A为数值的整数部分，B是小数部分的数值，C指数后的数字。
+
+```java
+private static boolean isNumeric(String str) {
+    pos = 0;
+    if (str == null || str.length() <= 0)
+        return false;
+    boolean numeric = scanInteger(str);
+    if (pos < str.length() && str.charAt(pos) == '.') {
+        ++pos;
+    /*
+    小数点的前面可以没有整数部分，比如.123等于0.123，也就是说numeric为false时，整体也要为真
+    小数点的后面可以没有数字，比如233.等于233.0，此时前面为false。
+    当然也可以前后都有数字，都为true。所以是||的关系。
+    */
+        numeric = scanUnsignedInt(str) || numeric;
+    }
+    if (pos < str.length() && (str.charAt(pos) == 'e' || str.charAt(pos) == 'E')) {
+        ++pos;
+        /*
+        指数的前面没有数字时，整个字符串不能表示数字，比如.e1、e1
+        指数的后面没有整数时，整个字符串不能表示数字，比如12e、12e+5.4
+        */
+        numeric = numeric && scanInteger(str);
+    }
+    return numeric && pos == str.length();
+}
+
+private static boolean scanInteger(String str) {
+    // +、- 不是必须，遇到+、-就向后移，检查是否有数字
+    if (pos < str.length() && (str.charAt(pos) == '+' || str.charAt(pos) == '-'))
+        ++pos;
+        return scanUnsignedInt(str);
+    }
+
+private static boolean scanUnsignedInt(String str) {
+    int tempPos = pos;
+    while (pos < str.length() && str.charAt(pos) >= '0' && str.charAt(pos) <= '9') {
+        ++pos;
+    }
+    //有数字则返回true，没数字则返回false
+    return pos > tempPos;
+}
+```
 
