@@ -31,15 +31,13 @@ public class Singleton {
 }
 ```
 
-# 03_数组中重复的数字
-
-## 03_01_可以改变原数组
+# 03_01_数组中重复的数字
 
 > 在一个长度为n的数组里的所有数组都在0~n-1的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道重复了几次。请找出任意一个重复的数组。
 
 [DuplicationInArray](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q03_01_%E6%95%B0%E7%BB%84%E9%87%8D%E5%A4%8D%E6%95%B0%E5%AD%97/DuplicationInArray.java)
 
-### 哈希表解法
+## 哈希表解法
 
 这个方法不需要改变原数组。遍历整个数组，对每一个数字进行判断，如果不在哈希表里面，则加入到哈希表；如果在哈希表里面，则添加进结果集，时间复杂度为O(n)，空间复杂度为O(n)。
 
@@ -52,7 +50,7 @@ for (int i = 0; i < arr.length; i++) {
 }
 ```
 
-### 原数组上修改解法
+## 原数组上修改解法
 
 这个方法时间复杂度还是O(n)，但是空间复杂度降低到O(1)。并且只能找到第一个重复的数字。
 
@@ -242,7 +240,7 @@ private static BinaryTreeNode constructCore(int[] preOrderArr, int[] inOrderArr,
     
     //中序序列中找到根节点
     int rootInOrderIndex = startInOrder;
-   while (rootInOrderIndex < inOrderArr.length && inOrderArr[rootInOrderIndex] != rootValue) 
+    while (rootInOrderIndex < inOrderArr.length && inOrderArr[rootInOrderIndex] != rootValue) 
        rootInOrderIndex++;
     
     //输入不匹配
@@ -902,6 +900,72 @@ private static boolean scanUnsignedInt(String str) {
     }
     //有数字则返回true，没数字则返回false
     return pos > tempPos;
+}
+```
+
+# 21_调整数组顺序使奇数在偶数前
+
+> 输入一个整数数组，实现一个函数将数组中奇数移动到偶数前面
+
+[ReorderArray](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q21_调整数组顺序奇在偶前/ReorderArray.java)
+
+维护两个指针，一个在首，一个在尾。第一个指针遇到偶数就停下，第二个指针遇到奇数就停下，然后交换。重复这个过程。
+
+```java
+private static void generalReorderOddEven(int[] arr) {
+    if (arr.length == 0 || arr == null)
+        return;
+    int start = 0;
+    int end = arr.length - 1;
+    while (end > start) {
+        //前面的指针不是偶数，就++
+        while (end > start && !isEven(arr[start]))
+            start++;
+        //后面的指针不是奇数，就--
+        while (end > start && isEven(arr[end]))
+            end--;
+        //交换
+        if (end > start) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+        }
+    }
+}
+```
+
+# 22_链表中倒数第k个节点
+
+> 输入一个链表，输出该链表的倒数第k个节点。从1开始计数，尾节点即是倒数第1个节点。
+
+[KthNodeFromEnd](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/src/q22_链表倒数第k个节点/KthNodeFromEnd.java)
+
+## 常规解法
+
+先遍历整个链表，得到总节点数n。再第二次遍历n-k+1次，即可得到倒数第k个节点。
+
+## 遍历一次解法
+
+维护两个指针，先让一个指针走k-1步，然后两者一起走，当第一个指针到达尾部时，第二个指针刚好达到倒数第k个节点。
+
+```java
+private static ListNode findKthToTail(ListNode head, int k) {
+    if (head == null || k == 0)
+        return null;
+    ListNode ahead = head;
+    ListNode behind = head;
+    for (int i = 0; i < k - 1; i++) {
+        //这个判断处理当链表数量<k的情况
+        if (ahead.next != null)
+            ahead = ahead.next;
+        else
+            return null;
+    }
+    while (ahead.next != null) {
+        ahead = ahead.next;
+        behind = behind.next;
+    }
+    return behind;
 }
 ```
 
