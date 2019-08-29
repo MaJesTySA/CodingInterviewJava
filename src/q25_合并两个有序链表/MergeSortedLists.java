@@ -5,13 +5,9 @@ import utils.ListNode;
 public class MergeSortedLists {
     public static void main(String[] args) {
         test1();
-        System.out.println("============");
         test2();
-        System.out.println("============");
         test3();
-        System.out.println("============");
         test4();
-        System.out.println("============");
         test5();
     }
 
@@ -32,107 +28,68 @@ public class MergeSortedLists {
         return mergedHead;
     }
 
+    private static void print(ListNode l1_node1, ListNode l2_node1) {
+        System.out.print("链表1： ");
+        ListNode.print(l1_node1);
+        System.out.print("链表2： ");
+        ListNode.print(l2_node1);
+        System.out.print("合并后：");
+        ListNode.print(merge(l1_node1, l2_node1));
+        System.out.println("============");
+    }
+
     private static void test5() {
         System.out.println("两个都为空");
-        ListNode l1_head = new ListNode(Integer.MIN_VALUE);
-        System.out.print("链表1： ");
-        ListNode.print(l1_head);
-        ListNode l2_head = new ListNode(Integer.MIN_VALUE);
-        System.out.print("链表2： ");
-        ListNode.print(l2_head);
-        ListNode mHead = new ListNode(Integer.MIN_VALUE);
-        mHead.next = merge(l1_head.next, l2_head.next);
-        System.out.print("合并后：");
-        ListNode.print(mHead);
+        ListNode l1_node1 = null;
+        ListNode l2_node1 = null;
+        print(l1_node1, l2_node1);
     }
 
     private static void test4() {
         System.out.println("有一个链表为空");
-        ListNode l1_head = new ListNode(Integer.MIN_VALUE);
         ListNode l1_node1 = new ListNode(1);
         ListNode l1_node2 = new ListNode(3);
         ListNode l1_node3 = new ListNode(5);
-        l1_head.next = l1_node1;
         l1_node1.next = l1_node2;
         l1_node2.next = l1_node3;
-        System.out.print("链表1： ");
-        ListNode.print(l1_head);
-        ListNode l2_head = new ListNode(Integer.MIN_VALUE);
-        System.out.print("链表2： ");
-        ListNode.print(l2_head);
-        ListNode mHead = new ListNode(Integer.MIN_VALUE);
-        mHead.next = merge(l1_head.next, l2_head.next);
-        System.out.print("合并后：");
-        ListNode.print(mHead);
+        ListNode l2_node1 = null;
+        print(l1_node1, l2_node1);
     }
 
     private static void test3() {
         System.out.println("两个链表只有一个数字");
-        ListNode l1_head = new ListNode(Integer.MIN_VALUE);
         ListNode l1_node1 = new ListNode(1);
-        l1_head.next = l1_node1;
-        System.out.print("链表1： ");
-        ListNode.print(l1_head);
-        ListNode l2_head = new ListNode(Integer.MIN_VALUE);
         ListNode l2_node1 = new ListNode(2);
-        l2_head.next = l2_node1;
-        System.out.print("链表2： ");
-        ListNode.print(l2_head);
-        ListNode mHead = new ListNode(Integer.MIN_VALUE);
-        mHead.next = merge(l1_head.next, l2_head.next);
-        System.out.print("合并后：");
-        ListNode.print(mHead);
+        print(l1_node1, l2_node1);
     }
 
     private static void test2() {
         System.out.println("合并有个无重复数字的链表");
-        ListNode l1_head = new ListNode(Integer.MIN_VALUE);
         ListNode l1_node1 = new ListNode(1);
         ListNode l1_node2 = new ListNode(3);
         ListNode l1_node3 = new ListNode(5);
-        l1_head.next = l1_node1;
         l1_node1.next = l1_node2;
         l1_node2.next = l1_node3;
-        System.out.print("链表1： ");
-        ListNode.print(l1_head);
-        ListNode l2_head = new ListNode(Integer.MIN_VALUE);
         ListNode l2_node1 = new ListNode(1);
         ListNode l2_node2 = new ListNode(3);
         ListNode l2_node3 = new ListNode(5);
-        l2_head.next = l2_node1;
         l2_node1.next = l2_node2;
         l2_node2.next = l2_node3;
-        System.out.print("链表2： ");
-        ListNode.print(l2_head);
-        ListNode mHead = new ListNode(Integer.MIN_VALUE);
-        mHead.next = merge(l1_head.next, l2_head.next);
-        System.out.print("合并后：");
-        ListNode.print(mHead);
+        print(l1_node1, l2_node1);
     }
 
     private static void test1() {
         System.out.println("合并两个无重复数字的链表");
-        ListNode l1_head = new ListNode(Integer.MIN_VALUE);
         ListNode l1_node1 = new ListNode(1);
         ListNode l1_node2 = new ListNode(3);
         ListNode l1_node3 = new ListNode(5);
-        l1_head.next = l1_node1;
         l1_node1.next = l1_node2;
         l1_node2.next = l1_node3;
-        System.out.print("链表1： ");
-        ListNode.print(l1_head);
-        ListNode l2_head = new ListNode(Integer.MIN_VALUE);
         ListNode l2_node1 = new ListNode(2);
         ListNode l2_node2 = new ListNode(4);
         ListNode l2_node3 = new ListNode(6);
-        l2_head.next = l2_node1;
         l2_node1.next = l2_node2;
         l2_node2.next = l2_node3;
-        System.out.print("链表2： ");
-        ListNode.print(l2_head);
-        ListNode mHead = new ListNode(Integer.MIN_VALUE);
-        mHead.next = merge(l1_head.next, l2_head.next);
-        System.out.print("合并后：");
-        ListNode.print(mHead);
+        print(l1_node1, l2_node1);
     }
 }
