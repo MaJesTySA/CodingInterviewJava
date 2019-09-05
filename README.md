@@ -2,7 +2,7 @@
 
 [1~22](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/docs/1~22.md)
 
-[23~54](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/docs/23~54.md)
+[23~44](https://github.com/MaJesTySA/CodingInterviewJava/blob/master/docs/23~44.md)
 
 ------
 
