@@ -12,19 +12,6 @@ public class MirrorOfBinaryTree {
         test5();
     }
 
-    private static void print(BinaryTreeNode node1) {
-        if (node1 == null) {
-            System.out.println("空树！");
-            return;
-        }
-        System.out.print("变换之前：");
-        node1.preOrder();
-        System.out.print("\n变换之后：");
-        mirrorRecursively(node1);
-        node1.preOrder();
-        System.out.println("\n=============");
-    }
-
     private static void mirrorRecursively(BinaryTreeNode node) {
         if (node == null)
             return;
@@ -39,6 +26,18 @@ public class MirrorOfBinaryTree {
             mirrorRecursively(node.right);
     }
 
+    private static void print(BinaryTreeNode node1) {
+        if (node1 == null) {
+            System.out.println("空树！");
+            return;
+        }
+        System.out.print("变换之前：");
+        node1.preOrder();
+        System.out.print("\n变换之后：");
+        mirrorRecursively(node1);
+        node1.preOrder();
+        System.out.println("\n=============");
+    }
     //            8
     //        6      10
     //       5 7    9  11
